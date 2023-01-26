@@ -1,0 +1,18 @@
+from flask import request, make_response
+from apihelpers import check_endpoint_info, check_data_sent
+import json
+from dbhelpers import run_statement
+
+def post():
+    is_valid = check_endpoint_info(request.json, ['name'])
+    if(is_valid != None):
+        return make_response(json.dumps(is_valid, default=str), 400)
+
+    results = run_statement('CALL add_city(?)', [request.json.get('name')])
+
+    if(type(results) == list and len(results) != 0):
+        return make_response(json.dumps(results[0], default=str), 200)
+    elif(results.startswith('Duplicate entry')):
+        return make_response(json.dumps(results, default=str), 400)
+    else:
+        return make_response(json.dumps("Sorry, an error has occured.", default=str), 500)

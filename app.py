@@ -1,11 +1,14 @@
 from flask import Flask
 from dbcreds import production_mode
+import endpoints.city
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 
-
+@app.post('/api/city')
+def post_city():
+    return endpoints.city.post()
 
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode

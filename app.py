@@ -18,6 +18,10 @@ def post_city():
 def get_cities():
     return endpoints.city.get()
 
+@app.delete('/api/city')
+def delete_city():
+    return endpoints.city.delete()
+
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):

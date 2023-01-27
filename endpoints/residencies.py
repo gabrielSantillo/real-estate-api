@@ -35,3 +35,12 @@ def get():
             return make_response(json.dumps('Wrong city id.', default=str), 400)
         else:
             return make_response(json.dumps('Sorry, an error has occurred.', default=str), 500)
+    elif(category != None and city == None):
+        results = run_statement('CALL get_residencies_by_category(?)', [request.args.get('category_id')])
+        
+        if(type(results) == list and len(results) != 0):
+            return make_response(json.dumps(results, default=str), 200)
+        elif(type(results) == list and len(results) == 0):
+            return make_response(json.dumps('Wrong category id.', default=str), 400)
+        else:
+            return make_response(json.dumps('Sorry, an error has occurred.', default=str), 500)

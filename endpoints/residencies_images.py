@@ -41,3 +41,21 @@ def get():
         return make_response(json.dumps("Wrong file name or wrong token.", default=str), 400)
 
     return send_from_directory('residencies_images', results[0]['file_name'])
+
+def delete():
+    is_valid = check_endpoint_info(request.json, ['file_name'])
+    if(is_valid != None):
+        return make_response(json.dumps(is_valid, default=str), 400)
+
+    results = run_statement('CALL delete_image(?)', [ 
+    request.json.get('file_name')])
+
+    if(type(results) == list and results[0]['row_updated'] == 1):
+        image_path = os.path.join('residencies_images', request.json.get('file_name'))
+        os.remove(image_path)
+
+        return make_response(json.dumps(results[0], default=str), 200)
+    elif(type(results) == list and results[0]['row_updated'] == 0):
+        return make_response(json.dumps("Wrong file name.", default=str), 400)
+    else:
+        return make_response(json.dumps("Sorry, an error has occurred.", default=str), 500)

@@ -16,9 +16,22 @@ def post():
         return make_response(json.dumps("Sorry, an error has occured.", default=str), 500)
     
 def get():
-    results = run_statement('CALL get_all_residencies()')
-    
-    if(type(results) == list and len(results) != 0):
-        return make_response(json.dumps(results, default=str), 200)
-    else:
-        return make_response(json.dumps('Sorry, an error has occurred.', default=str), 500)
+    city = request.args.get('city_id')
+    category = request.args.get('category_id')
+
+    if(city == None and category == None):
+        results = run_statement('CALL get_all_residencies()')
+        
+        if(type(results) == list and len(results) != 0):
+            return make_response(json.dumps(results, default=str), 200)
+        else:
+            return make_response(json.dumps('Sorry, an error has occurred.', default=str), 500)
+    elif(city != None and category == None):
+        results = run_statement('CALL get_residencies_by_city(?)', [request.args.get('city_id')])
+        
+        if(type(results) == list and len(results) != 0):
+            return make_response(json.dumps(results, default=str), 200)
+        elif(type(results) == list and len(results) == 0):
+            return make_response(json.dumps('Wrong city id.', default=str), 400)
+        else:
+            return make_response(json.dumps('Sorry, an error has occurred.', default=str), 500)

@@ -52,6 +52,10 @@ def post_residencie():
 def get_residencies():
     return endpoints.residencies.get()
 
+@app.patch('/api/residencies')
+def patch_residency():
+    return endpoints.residencies.patch()
+
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):

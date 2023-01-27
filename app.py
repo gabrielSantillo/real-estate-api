@@ -48,6 +48,10 @@ def delete_category():
 def post_residencie():
     return endpoints.residencies.post()
 
+@app.get('/api/residencies')
+def get_residencies():
+    return endpoints.residencies.get()
+
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):

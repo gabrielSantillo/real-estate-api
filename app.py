@@ -1,6 +1,6 @@
 from flask import Flask
 from dbcreds import production_mode
-import endpoints.city, endpoints.category, endpoints.residencies, endpoints.residencies_images
+import endpoints.city, endpoints.category, endpoints.residencies, endpoints.residencies_images, endpoints.client
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -75,6 +75,14 @@ def get_residency_image():
 @app.delete('/api/residencies-images')
 def delete_residency_image():
     return endpoints.residencies_images.delete()
+
+#############################################################
+# client
+#############################################################
+
+@app.post('/api/client')
+def post_client():
+    return endpoints.client.post()
 
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode

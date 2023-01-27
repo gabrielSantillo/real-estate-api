@@ -22,3 +22,18 @@ def get():
         return make_response(json.dumps(results, default=str), 200)
     else:
         return make_response(json.dumps('Sorry, an error has occurred.', default=str), 500)
+    
+def delete():
+    is_valid = check_endpoint_info(request.json, ['category_id'])
+    if(is_valid != None):
+        return make_response(json.dumps(is_valid, default=str), 400)
+    
+
+    results = run_statement('CALL delete_category(?)', [request.json.get('category_id')])
+
+    if(type(results) == list and len(results) != 0):
+        return make_response(json.dumps(results[0], default=str), 200)
+    elif(results.startswith('Wrong id')):
+        return make_response(json.dumps(results, default=str), 400)
+    else:
+        return make_response(json.dumps("Sorry, an error has occured.", default=str), 500)

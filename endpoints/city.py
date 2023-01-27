@@ -1,5 +1,5 @@
 from flask import request, make_response
-from apihelpers import check_endpoint_info, check_data_sent
+from apihelpers import check_endpoint_info
 import json
 from dbhelpers import run_statement
 
@@ -12,8 +12,6 @@ def post():
 
     if(type(results) == list and len(results) != 0):
         return make_response(json.dumps(results[0], default=str), 200)
-    elif(results.startswith('Duplicate entry')):
-        return make_response(json.dumps(results, default=str), 400)
     else:
         return make_response(json.dumps("Sorry, an error has occured.", default=str), 500)
     

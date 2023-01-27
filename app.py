@@ -1,6 +1,6 @@
 from flask import Flask
 from dbcreds import production_mode
-import endpoints.city
+import endpoints.city, endpoints.category
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -21,6 +21,15 @@ def get_cities():
 @app.delete('/api/city')
 def delete_city():
     return endpoints.city.delete()
+
+
+#############################################################
+# category
+#############################################################
+
+@app.post('/api/category')
+def post_category():
+    return endpoints.category.post()
 
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode

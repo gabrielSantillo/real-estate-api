@@ -56,6 +56,10 @@ def get_residencies():
 def patch_residency():
     return endpoints.residencies.patch()
 
+@app.delete('/api/residencies')
+def delete_residency():
+    return endpoints.residencies.delete()
+
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):

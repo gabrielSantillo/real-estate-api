@@ -68,6 +68,10 @@ def delete_residency():
 def post_residency_image():
     return endpoints.residencies_images.post()
 
+@app.get('/api/residencies-images')
+def get_residency_image():
+    return endpoints.residencies_images.get()
+
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):

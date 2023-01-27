@@ -31,6 +31,10 @@ def delete_city():
 def post_category():
     return endpoints.category.post()
 
+@app.get('/api/category')
+def get_categories():
+    return endpoints.category.get()
+
 
 # if statement to check if the production_mode variable is true, if yes, run in production mode, if not, run in testing mode
 if (production_mode):

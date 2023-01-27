@@ -14,3 +14,11 @@ def post():
         return make_response(json.dumps(results[0], default=str), 200)
     else:
         return make_response(json.dumps("Sorry, an error has occured.", default=str), 500)
+    
+def get():
+    results = run_statement('CALL get_all_categories()')
+    
+    if(type(results) == list and len(results) != 0):
+        return make_response(json.dumps(results, default=str), 200)
+    else:
+        return make_response(json.dumps('Sorry, an error has occurred.', default=str), 500)

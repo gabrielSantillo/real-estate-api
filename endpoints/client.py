@@ -1,5 +1,5 @@
 from flask import request, make_response
-from apihelpers import check_endpoint_info, organize_client_response, check_data_sent
+from apihelpers import check_endpoint_info, organize_client_response, check_data_sent, send_email
 import json
 from dbhelpers import run_statement
 
@@ -11,6 +11,7 @@ def post():
     results = run_statement('CALL add_client(?,?,?,?,?,?)', [request.json.get('preferable_city'), request.json.get('first_name'), request.json.get('last_name'), request.json.get('email'), request.json.get('phone_number'), request.json.get('budget')])
 
     if(type(results) == list and len(results) != 0):
+        send_email(request.json.get('first_name'), request.json.get('email'))
         return make_response(json.dumps(results[0], default=str), 200)
     else:
         return make_response(json.dumps("Sorry, an error has occured.", default=str), 500)

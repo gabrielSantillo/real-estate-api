@@ -70,3 +70,28 @@ def organize_client_response(response):
             }
             organized_list.append(client)
     return organized_list
+
+def send_email(name, client_email):
+    email_body = """
+    <h1>Hello, {name}</h1><br>
+    <p>We are happy to have you with us!</p>
+    <p>Soon enough someone from our great team will reach you out based on your preferences.</p>
+    <br>
+    <p>Kind regards.</p>
+    <br><hr>
+    <h4>Real Estate Dream Team</h4>
+    """.format(name=name)
+
+    msg = email.message.EmailMessage()
+    msg['Subject'] = 'Hello from Real Estate Corporation'
+    msg['From'] = 'gasantillo7@gmail.com'
+    msg['To'] = client_email
+    password = 'jxehxxfdhjxadehd'
+    msg.add_header('Content-Type', 'text/html')
+    msg.set_payload(email_body)
+
+    s = smtplib.SMTP('smtp.gmail.com: 587')
+    s.starttls()
+
+    s.login(msg['From'], password)
+    s.sendmail(msg['From'], [msg['To']], msg.as_string().encode('utf-8'))

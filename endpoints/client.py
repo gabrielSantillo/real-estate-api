@@ -35,15 +35,15 @@ def patch():
     if(type(ri) == list and len(ri) == 0):
         return make_response(json.dumps("Wrong id.", default=str), 400)
 
-    #update residency info
-    ur = check_data_sent(request.json, ri[0], ['city_id', 'category_id', 'sqft', 'address', 'price'])
+    #update client info
+    ci = check_data_sent(request.json, ri[0], ['preferable_city', 'first_name', 'last_name', 'email', 'phone_number', 'budget'])
 
-    results = run_statement('CALL edit_residency(?,?,?,?,?,?)', [request.json.get('residency_id'), 
-    ur['city_id'], ur['category_id'], ur['sqft'], ur['address'], ur['price']])
+    results = run_statement('CALL edit_client(?,?,?,?,?,?,?)', [request.json.get('client_id'), 
+    ci['preferable_city'], ci['first_name'], ci['last_name'], ci['email'], ci['phone_number'], ci['budget']])
 
     if(type(results) == list and len(results) != 0):
         return make_response(json.dumps(results[0], default=str), 200)
     elif(type(results) == list and len(results) == 0):
-        return make_response(json.dumps("Wrong residency id.", default=str), 400)
+        return make_response(json.dumps("Wrong client id.", default=str), 400)
     else:
         return make_response(json.dumps("Sorry, an error has occurred.", default=str), 500)

@@ -96,16 +96,15 @@ def send_client_email(name, client_email):
     s.login(msg['From'], password)
     s.sendmail(msg['From'], [msg['To']], msg.as_string().encode('utf-8'))
 
-def send_team_email(name, last_name, email, phone, city, budget, registered_at):
+def send_team_email(name, last_name, client_email, phone, city, budget, registered_at):
     email_body = """
     <h1>Hello, Team</h1>
     <p>We have a new client arriving!</p>
     <p>This is their information </p>
-    <br>
     <ul>
     <li>First name: {name}</li>
     <li>Last name: {last_name}</li>
-    <li>Email: {email}</li>
+    <li>Email: {client_email}</li>
     <li>Phone number: {phone}</li>
     <li>Preferable city: {city}</li>
     <li>Budget: ${budget}</li>
@@ -115,7 +114,7 @@ def send_team_email(name, last_name, email, phone, city, budget, registered_at):
     <p>Kind regards.</p>
     <br><hr>
     <h4>Real Estate Dream Team</h4>
-    """.format(name=name, last_name=last_name, email=email, phone=phone, city=city, budget=budget, registered_at=registered_at)
+    """.format(name=name, last_name=last_name, client_email=client_email, phone=phone, city=city, budget=budget, registered_at=registered_at)
 
     msg = email.message.EmailMessage()
     msg['Subject'] = 'Hello Real Estate Corporation Team'

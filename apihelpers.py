@@ -41,16 +41,32 @@ def check_data_sent(sent_data, original_data, expected_data):
     return original_data
 
 
-# this function is responsible for checking if the menu ids sent when ordering belongs to the restaurant id that was sent
-def match_ids(ids_sent, original_ids):
-    ids = []
-    for id in ids_sent:
-        for item_id in original_ids:
-            if(id == item_id['menu_item_id']):
-                    ids.append(id)
-        
-    if(len(ids) == len(ids_sent)):
-        return True
-    else:
-        return False
+def organize_client_response(response):
+    organized_list = []
+    cities = []
 
+    for data in response:
+        if (data['city_name'] in cities):
+            new_client = {
+                'first_name': data['first_name'],
+                'last_name': data['last_name'],
+                'email': data['email'],
+                'phone_number': data['phone_number'],
+                'budget': data['budget']
+            }
+            client['clients'].append(new_client)
+        else:
+            cities.append(data['city_name'])
+
+            client = {
+                'city_name': data['city_name'],
+                'clients': [{
+                    'first_name': data['first_name'],
+                    'last_name': data['last_name'],
+                    'email': data['email'],
+                    'phone_number': data['phone_number'],
+                    'budget': data['budget']
+                }]
+            }
+            organized_list.append(client)
+    return organized_list

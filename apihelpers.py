@@ -71,7 +71,7 @@ def organize_client_response(response):
             organized_list.append(client)
     return organized_list
 
-def send_email(name, client_email):
+def send_client_email(name, client_email):
     email_body = """
     <h1>Hello, {name}</h1><br>
     <p>We are happy to have you with us!</p>
@@ -86,6 +86,41 @@ def send_email(name, client_email):
     msg['Subject'] = 'Hello from Real Estate Corporation'
     msg['From'] = 'gasantillo7@gmail.com'
     msg['To'] = client_email
+    password = 'jxehxxfdhjxadehd'
+    msg.add_header('Content-Type', 'text/html')
+    msg.set_payload(email_body)
+
+    s = smtplib.SMTP('smtp.gmail.com: 587')
+    s.starttls()
+
+    s.login(msg['From'], password)
+    s.sendmail(msg['From'], [msg['To']], msg.as_string().encode('utf-8'))
+
+def send_team_email(name, last_name, email, phone, city, budget, registered_at):
+    email_body = """
+    <h1>Hello, Team</h1>
+    <p>We have a new client arriving!</p>
+    <p>This is their information </p>
+    <br>
+    <ul>
+    <li>First name: {name}</li>
+    <li>Last name: {last_name}</li>
+    <li>Email: {email}</li>
+    <li>Phone number: {phone}</li>
+    <li>Preferable city: {city}</li>
+    <li>Budget: ${budget}</li>
+    <li>Registered at: {registered_at}</li>
+    </ul>
+    <br>
+    <p>Kind regards.</p>
+    <br><hr>
+    <h4>Real Estate Dream Team</h4>
+    """.format(name=name, last_name=last_name, email=email, phone=phone, city=city, budget=budget, registered_at=registered_at)
+
+    msg = email.message.EmailMessage()
+    msg['Subject'] = 'Hello Real Estate Corporation Team'
+    msg['From'] = 'gasantillo7@gmail.com'
+    msg['To'] = 'gasantillo7@gmail.com'
     password = 'jxehxxfdhjxadehd'
     msg.add_header('Content-Type', 'text/html')
     msg.set_payload(email_body)

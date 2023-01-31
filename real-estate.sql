@@ -607,9 +607,11 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_residencies_by_city`(city_id_input int unsigned)
 begin
-	select id, city_id, category_id, convert(sqft using utf8) as sqft, convert(address using utf8) as address,
-	price, convert(created_at using utf8) created_at 
-	from residencies
+	select r.id, convert(c.name using utf8) as city, convert(c2.name using utf8) as category, convert(r.sqft using utf8) as sqft, convert(r.address using utf8) as address,
+	r.price, convert(r.created_at using utf8) created_at 
+	from residencies r
+	inner join city c on c.id = r.city_id
+	inner join category c2 on c2.id = r.category_id
 	where city_id = city_id_input;
 END ;;
 DELIMITER ;
@@ -671,4 +673,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-30 17:09:31
+-- Dump completed on 2023-01-31 14:16:22

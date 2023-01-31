@@ -100,7 +100,7 @@ def send_team_email(name, last_name, client_email, phone, city, budget, register
     email_body = """
     <h1>Hello, Team</h1>
     <p>We have a new client arriving!</p>
-    <p>This is their information </p>
+    <p>This is their information</p>
     <ul>
     <li>First name: {name}</li>
     <li>Last name: {last_name}</li>

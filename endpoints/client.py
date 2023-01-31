@@ -11,7 +11,7 @@ def post():
     results = run_statement('CALL add_client(?,?,?,?,?,?)', [request.json.get('preferable_city'), request.json.get('first_name'), request.json.get('last_name'), request.json.get('email'), request.json.get('phone_number'), request.json.get('budget')])
 
     if(type(results) == list and len(results) != 0):
-        # send_client_email(request.json.get('first_name'), request.json.get('email'))
+        send_client_email(request.json.get('first_name'), request.json.get('email'))
         send_team_email(request.json.get('first_name'), request.json.get('last_name'), request.json.get('email'), request.json.get('phone_number'), results[0]['city'], request.json.get('budget'), results[0]['created_at'])
         return make_response(json.dumps(results[0], default=str), 200)
     else:

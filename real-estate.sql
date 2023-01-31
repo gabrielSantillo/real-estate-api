@@ -64,7 +64,7 @@ CREATE TABLE `client` (
   PRIMARY KEY (`id`),
   KEY `client_FK` (`preferable_city`),
   CONSTRAINT `client_FK` FOREIGN KEY (`preferable_city`) REFERENCES `city` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +183,10 @@ begin
 	insert into client(preferable_city, first_name, last_name, email, phone_number, budget)
 	values (preferable_city_input, first_name_input, last_name_input, email_input, phone_number_input, budget_input);
 
-	select last_insert_id() as id; 
+	select c.id, convert(c.created_at using utf8) as created_at, convert(ci.name using utf8) as city
+	from client c
+	inner join city ci on ci.id = c.preferable_city
+	where c.id = last_insert_id(); 
 	commit;
 END ;;
 DELIMITER ;
@@ -668,4 +671,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-30 11:34:47
+-- Dump completed on 2023-01-30 17:09:31

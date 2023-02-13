@@ -31,16 +31,6 @@ CREATE TABLE `category` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `category`
---
-
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'house','2023-01-27 10:16:28'),(2,'townhouse','2023-01-27 10:17:22'),(3,'apartment','2023-01-27 10:17:28');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `city`
 --
 
@@ -54,16 +44,6 @@ CREATE TABLE `city` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `city`
---
-
-LOCK TABLES `city` WRITE;
-/*!40000 ALTER TABLE `city` DISABLE KEYS */;
-INSERT INTO `city` VALUES (1,'calgary','2023-01-26 15:47:28'),(2,'vancouver','2023-01-26 15:48:01'),(3,'toronto','2023-01-26 15:48:07');
-/*!40000 ALTER TABLE `city` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `client`
@@ -86,16 +66,6 @@ CREATE TABLE `client` (
   CONSTRAINT `client_FK` FOREIGN KEY (`preferable_city`) REFERENCES `city` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `client`
---
-
-LOCK TABLES `client` WRITE;
-/*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (1,1,'Gabriel','Santillo','gasantillo7@gmail.com','5878880975',300000,'2023-01-27 16:58:23'),(2,1,'Natalia','Fernandes','natalia_br@hotmail.com','5877775190',400000,'2023-01-30 10:44:01'),(3,1,'Dimitri','Canada Diario','canada_diario@hotmail.com','6045555190',900000,'2023-01-30 10:44:40'),(4,2,'Kitty','No Canada','kitty@hotmail.com','6036661590',800000,'2023-01-30 10:55:52'),(5,2,'Zarillo','Netto','zarillo@hotmail.com','6079992390',900000,'2023-01-30 10:56:21'),(6,2,'Amanda','Araujo','amanda@hotmail.com','6097778990',1000000,'2023-01-30 10:57:06'),(7,3,'Chico','Zarro','chico@hotmail.com','6012228990',1200000,'2023-01-30 10:58:14'),(8,3,'Celina','Zarro','celina@hotmail.com','6033338990',2000000,'2023-01-30 10:59:09'),(9,3,'Will','e Greg','willgreg@hotmail.com','6074448990',1000000,'2023-01-30 10:59:38');
-/*!40000 ALTER TABLE `client` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `residencies`
@@ -121,16 +91,6 @@ CREATE TABLE `residencies` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `residencies`
---
-
-LOCK TABLES `residencies` WRITE;
-/*!40000 ALTER TABLE `residencies` DISABLE KEYS */;
-INSERT INTO `residencies` VALUES (1,1,1,'4678','478 15th street SW',1589000,'2023-01-27 11:05:28.000'),(4,1,1,'2456','48th street SE',899000,'2023-02-12 16:13:06'),(5,1,1,'3665','10th Avenue SW',1599000,'2023-02-12 17:05:16'),(6,1,1,'3278','78th Street NW',1199000,'2023-02-12 17:20:34'),(7,1,1,'4487','35 Avenue NW',1345000,'2023-02-12 17:22:23'),(8,1,3,'988','17 Avenue SW',599000,'2023-02-12 17:26:32'),(9,1,3,'1148','8th Avenue SW',385000,'2023-02-12 17:28:11'),(10,1,3,'748','15th Avenue SE',455000,'2023-02-12 17:29:18'),(11,2,1,'2356','Fulwell St',1899000,'2023-02-12 18:18:20'),(12,2,1,'2956','Napanee St',2499000,'2023-02-12 18:20:18'),(13,2,1,'4956','Old Yale Rd',3144000,'2023-02-12 18:21:38'),(14,2,1,'5956','Michaud Crescent',5299000,'2023-02-12 18:22:57'),(15,2,1,'3656','Westwood St',3199000,'2023-02-12 18:24:55'),(16,2,1,'4177','Welcher Ave',2999000,'2023-02-12 18:26:27'),(17,2,1,'3986','Coleman St',4000000,'2023-02-12 18:27:40'),(18,2,1,'2700','Marine Dr',8499000,'2023-02-12 18:29:14'),(19,3,3,'857','Shepard Ave',1199000,'2023-02-12 18:33:06'),(20,3,1,'3564','Wallace Ave',2412000,'2023-02-12 18:35:07'),(21,3,1,'2478','Royal York Ave',4599000,'2023-02-12 18:36:35'),(22,3,3,'2234','Leopold St',2229000,'2023-02-12 18:38:04'),(23,3,3,'1974','Adelaida St W',1399000,'2023-02-12 18:39:59'),(24,3,1,'4299','Davos Rd',2999000,'2023-02-12 18:41:12'),(25,3,1,'3856','Kelly Crescent',2584000,'2023-02-12 18:43:01'),(26,3,1,'4447','Crown Crescent',2156000,'2023-02-12 18:44:22');
-/*!40000 ALTER TABLE `residencies` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `residencies_images`
 --
 
@@ -147,16 +107,6 @@ CREATE TABLE `residencies_images` (
   CONSTRAINT `residencies_images_FK` FOREIGN KEY (`residency_id`) REFERENCES `residencies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `residencies_images`
---
-
-LOCK TABLES `residencies_images` WRITE;
-/*!40000 ALTER TABLE `residencies_images` DISABLE KEYS */;
-INSERT INTO `residencies_images` VALUES (1,1,'621ebba7c84b436abf49edfd2f1541b3.jpeg','2023-01-27 15:49:25'),(3,4,'b6ab20fa41a540b7ba03992b5903aa53.jpeg','2023-02-12 16:14:44'),(4,5,'a7d0492a7b224426862c0406abf8e6f5.jpeg','2023-02-12 17:06:38'),(5,6,'79abee59ec30422598b868bd2d21b77a.jpeg','2023-02-12 17:20:44'),(6,7,'d4927fa5d0d64ec18d4371ba17b93ad7.jpeg','2023-02-12 17:22:39'),(7,8,'2bdf3f8eaffd4577b8dac851165de40d.jpeg','2023-02-12 17:26:42'),(8,9,'5b3339bab76844aeb75e680256b83204.jpeg','2023-02-12 17:28:23'),(9,10,'b5b9b3fdeb454945884bdddbe9560d64.jpeg','2023-02-12 17:29:32'),(10,11,'4a997be8373a43359021f4c162159784.jpeg','2023-02-12 18:18:52'),(11,12,'1c4f827df2f548a48692c67acdf409e1.jpeg','2023-02-12 18:20:21'),(12,13,'ab2fae5240be455eb09f9a603290b5c5.jpeg','2023-02-12 18:21:41'),(13,14,'0df2fff8e4e34bdaa57c6eff6dde9d4f.jpeg','2023-02-12 18:23:00'),(14,15,'14c20189543d47c38fd1f7c49a454793.jpeg','2023-02-12 18:24:59'),(15,16,'915f62d12e0842cd9281386d6cddfbd3.jpeg','2023-02-12 18:26:30'),(16,17,'2fd5c5684e014168ab81261cc287275a.jpeg','2023-02-12 18:27:42'),(17,18,'dd0c56682ee948a0acc86148a4ad96fa.jpeg','2023-02-12 18:29:25'),(18,19,'ff376154d8b64a878a6f159d953f8c77.jpeg','2023-02-12 18:33:10'),(19,20,'48310765a54b4eff9fe6d059a285ddc6.jpeg','2023-02-12 18:35:10'),(20,21,'88717a745b054504945182e057f856df.webp','2023-02-12 18:36:37'),(21,22,'8ae8495d7f13420882bd9884e5cab928.jpeg','2023-02-12 18:38:08'),(22,23,'242c47a71ae84d2092baba412972b5d2.jpeg','2023-02-12 18:40:02'),(23,24,'7ce1376909214ac9b4e51b4b9f911bac.jpeg','2023-02-12 18:41:15'),(24,25,'5b94403e6a8749c29db5c7cda8e9e791.jpeg','2023-02-12 18:43:04'),(25,26,'0c5032115e6644d2972981147fc9068b.jpeg','2023-02-12 18:44:26');
-/*!40000 ALTER TABLE `residencies_images` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'real-estate'
@@ -736,4 +686,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-13 13:35:42
+-- Dump completed on 2023-02-13 13:36:05

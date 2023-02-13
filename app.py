@@ -101,7 +101,7 @@ def delete_client():
 if (production_mode):
     print("Running in Production Mode")
     import bjoern  # type: ignore
-    bjoern.run(app, "0.0.0.0", 5075)
+    bjoern.run(app, "0.0.0.0", 5085)
 else:
     from flask_cors import CORS
     CORS(app)

@@ -64,7 +64,7 @@ CREATE TABLE `client` (
   PRIMARY KEY (`id`),
   KEY `client_FK` (`preferable_city`),
   CONSTRAINT `client_FK` FOREIGN KEY (`preferable_city`) REFERENCES `city` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -87,7 +87,7 @@ CREATE TABLE `residencies` (
   KEY `residencies_FK_1` (`category_id`),
   CONSTRAINT `residencies_FK` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `residencies_FK_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +105,7 @@ CREATE TABLE `residencies_images` (
   PRIMARY KEY (`id`),
   KEY `residencies_images_FK` (`residency_id`),
   CONSTRAINT `residencies_images_FK` FOREIGN KEY (`residency_id`) REFERENCES `residencies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -500,10 +500,11 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_residencies`()
 begin
 	select r.id, convert(c.name using utf8) as city, convert(c2.name using utf8) as category, convert(r.sqft using utf8) as sqft, convert(r.address using utf8) as address,
-	r.price, convert(r.created_at using utf8) created_at 
+	r.price, convert(ri.file_name using utf8) as image, convert(r.created_at using utf8) created_at 
 	from residencies r
 	inner join city c on c.id = r.city_id
-	inner join category c2 on c2.id = r.category_id;
+	inner join category c2 on c2.id = r.category_id
+	inner join residencies_images ri on ri.residency_id = r.id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -588,10 +589,11 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_residencies_by_category`(category_id_input int unsigned)
 begin
 	select r.id, convert(c.name using utf8) as city, convert(c2.name using utf8) as category, convert(r.sqft using utf8) as sqft, convert(r.address using utf8) as address,
-	r.price, convert(r.created_at using utf8) created_at 
+	r.price, convert(ri.file_name using utf8) as image, convert(r.created_at using utf8) created_at 
 	from residencies r
 	inner join city c on c.id = r.city_id
-	inner join category c2 on c2.id = r.category_id
+	inner join category c2 on c2.id = r.category_id
+	inner join residencies_images ri on ri.residency_id = r.id
 	where r.category_id = category_id_input;
 END ;;
 DELIMITER ;
@@ -612,10 +614,11 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_residencies_by_city`(city_id_input int unsigned)
 begin
 	select r.id, convert(c.name using utf8) as city, convert(c2.name using utf8) as category, convert(r.sqft using utf8) as sqft, convert(r.address using utf8) as address,
-	r.price, convert(r.created_at using utf8) created_at 
+	r.price, convert(ri.file_name using utf8) as image, convert(r.created_at using utf8) created_at 
 	from residencies r
 	inner join city c on c.id = r.city_id
-	inner join category c2 on c2.id = r.category_id
+	inner join category c2 on c2.id = r.category_id
+	inner join residencies_images ri on ri.residency_id = r.id 
 	where r.city_id = city_id_input;
 END ;;
 DELIMITER ;
@@ -639,10 +642,11 @@ category_id_input int unsigned
 )
 begin
 	select r.id, convert(c.name using utf8) as city, convert(c2.name using utf8) as category, convert(r.sqft using utf8) as sqft, convert(r.address using utf8) as address,
-	r.price, convert(r.created_at using utf8) created_at 
+	r.price, convert(ri.file_name using utf8) as image, convert(r.created_at using utf8) created_at 
 	from residencies r
 	inner join city c on c.id = r.city_id
-	inner join category c2 on c2.id = r.category_id
+	inner join category c2 on c2.id = r.category_id
+	inner join residencies_images ri on ri.residency_id = r.id
 	where r.city_id  = city_id_input and r.category_id = category_id_input;
 END ;;
 DELIMITER ;
@@ -682,4 +686,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-31 15:25:21
+-- Dump completed on 2023-02-12 18:46:36
